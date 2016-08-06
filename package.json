@@ -4,7 +4,7 @@
     "description": "chat app",
     "main": "app.js",
     "scripts": {
-        "start": "watchify -o js/bundle.js -v -d js/app.js"
+        "watch": "watchify -o js/bundle.js -v -d js/app.js"
     },
     "repository": {
         "type": "git",
@@ -24,12 +24,17 @@
     "homepage": "https://github.com/yowangbin/ChatServer#readme",
     "dependencies": {
         "browserify": "^13.1.0",
+        "chokidar": "^1.6.0",
         "classnames": "^2.2.5",
+        "envify": "^3.4.1",
         "express": "^4.10.2",
         "flux": "^2.1.1",
         "keymirror": "^0.1.1",
         "object-assign": "^4.1.0",
         "react": "^15.3.0",
+        "react-dom": "^15.3.0",
+        "readdirp": "^2.1.0",
+        "set-immediate-shim": "^1.0.1",
         "socket.io": "^1.4.8"
     },
     "devDependencies": {
@@ -37,5 +42,10 @@
         "reactify": "^1.1.1",
         "uglify-js": "^2.7.0",
         "watchify": "^3.7.0"
+    },
+    "browserify": {
+        "transform": [
+            "reactify"
+        ]
     }
 }
