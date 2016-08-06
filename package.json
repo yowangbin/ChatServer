@@ -1,29 +1,41 @@
 {
-  "name": "flux-chat",
-  "version": "0.0.1",
-  "description": "chat app",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yowangbin/ChatServer.git"
-  },
-  "keywords": [
-    "react",
-    "flux",
-    "socket",
-    "chat"
-  ],
-  "author": "wangbin",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yowangbin/ChatServer/issues"
-  },
-  "homepage": "https://github.com/yowangbin/ChatServer#readme",
-  "dependencies": {
-    "express": "^4.10.2",
-    "socket.io": "^1.4.8"
-  }
+    "name": "flux-chat",
+    "version": "0.0.1",
+    "description": "chat app",
+    "main": "app.js",
+    "scripts": {
+        "start": "watchify -o js/bundle.js -v -d js/app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yowangbin/ChatServer.git"
+    },
+    "keywords": [
+        "react",
+        "flux",
+        "socket",
+        "chat"
+    ],
+    "author": "wangbin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/yowangbin/ChatServer/issues"
+    },
+    "homepage": "https://github.com/yowangbin/ChatServer#readme",
+    "dependencies": {
+        "browserify": "^13.1.0",
+        "classnames": "^2.2.5",
+        "express": "^4.10.2",
+        "flux": "^2.1.1",
+        "keymirror": "^0.1.1",
+        "object-assign": "^4.1.0",
+        "react": "^15.3.0",
+        "socket.io": "^1.4.8"
+    },
+    "devDependencies": {
+        "browserify": "^13.1.0",
+        "reactify": "^1.1.1",
+        "uglify-js": "^2.7.0",
+        "watchify": "^3.7.0"
+    }
 }

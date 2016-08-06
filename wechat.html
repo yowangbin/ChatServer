@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WeChat</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+
+<body class="loaded">
+    <div class="main">
+        <div class="main_inner" ng-right-click="showContextMenu($event)">
+            <!--BEGIN panel-->
+            <div class="panel">
+                <!--BEGIN header-->
+                <div class="header">
+                    <div class="avatar">
+                        <img class="img" src="">
+                    </div>
+                    <div class="info">
+                        <h3 class="nickname">
+                            <span class="display_name ng-binding">Aha！！</span>
+                            <a class="opt" href="javascript:;"><i class="web_wechat_add"></i></a>
+                        </h3>
+                    </div>
+                </div>
+                <!--END header-->
+                <!--BEGIN search-->
+                <div class="search_bar" id="search_bar">
+                    <i class="web_wechat_search"></i>
+                    <input class="frm_search ng-isolate-scope ng-pristine ng-valid" type="text" placeholder="搜索">
+                </div>
+                <!--END search-->
+                <!--BEGIN tab-->
+                <div class="tab">
+                    <div class="tab_item ">
+                        <a class="chat" title="聊天 " href="# ">
+                            <i class="web_wechat_tab_chat web_wechat_tab_chat_hl"></i>
+                        </a>
+                    </div>
+                    <!-- ngIf: isShowReader -->
+                    <div class="tab_item ng-scope ">
+                        <a class="chat " title="阅读 " href="# ">
+                            <i class="web_wechat_tab_public "></i>
+                        </a>
+                    </div>
+                    <!-- end ngIf: isShowReader -->
+                    <div class="tab_item no_extra ">
+                        <a class="chat " title="通讯录 " href="# ">
+                            <i class="web_wechat_tab_friends "></i>
+                        </a>
+                    </div>
+                </div>
+                <!--END tab-->
+                <!--BEGIN nav view-->
+                <!-- uiView: navView -->
+                <div id="navView " class="ng-scope "></div>
+                <div class="nav_view ng-scope " style="visibility: visible; width: auto; ">
+                    <!--BEGIN chat list-->
+                    <!--END contact list-->
+                </div>
+                <!--</div>-->
+                <!--END nav view-->
+            </div>
+            <!--END panel-->
+            <!--BEGIN chat-->
+            <!-- uiView: contentView -->
+            <div style="height:100%;" class="ng-scope">
+                <div id="chatArea" class="box chat ng-scope">
+                    <!--BEGIN HD-->
+                    <div class="box_hd">
+                        <a class="ext web_wechat_addfriend" href="javascript:;" title="成员"></a>
+                        <a class="ext web_wechat_addfriend" href="javascript:;" title="Profile"></a>
+                        <div id="chatRoomMembersWrap"></div>
+                        <div class="title_wrap">
+                            <div class="title poi">
+                                <a class="title_name ng-binding"></a>
+                                <i class="web_wechat_down_icon ng-hide"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END HD-->
+                    <!--BEGIN BD-->
+                    <div class="scroll-wrapper box_bd chat_bd scrollbar-dynamic" style="position: absolute;">
+                        <div jquery-scrollbar="" class="box_bd chat_bd scrollbar-dynamic scroll-content" style="margin-bottom: 0px; margin-right: 0px; height: 469px;">
+                            <div class="ng-scope">
+                                <div ng-style="{height:topHeight}" class="top-placeholder ng-scope" style="height: 0px;"></div>
+                                <!-- ngRepeat: message in chatContent -->
+                                <div ng-style="{height:bottomHeight}" class="bottom-placeholder ng-scope" style="height: 0px;"></div>
+                            </div>
+                            <!-- ngIf: chatContent.length < 1 -->
+                            <div ng-if="chatContent.length < 1" class="message_empty ng-scope">
+                                <i class="web_wechat_nomes_icon" ng-hide="currentContact.getDisplayName()"></i>
+                                <p ng-show="currentContact.getDisplayName()" class="ng-hide">暂时没有新消息</p>
+                                <p ng-hide="currentContact.getDisplayName()" class="">未选择聊天</p>
+                            </div>
+                            <!-- end ngIf: chatContent.length < 1 -->
+                        </div>
+                        <div class="scroll-element scroll-x">
+                            <div class="scroll-element_corner"></div>
+                            <div class="scroll-arrow scroll-arrow_less"></div>
+                            <div class="scroll-arrow scroll-arrow_more"></div>
+                            <div class="scroll-element_outer">
+                                <div class="scroll-element_size"></div>
+                                <div class="scroll-element_inner-wrapper">
+                                    <div class="scroll-element_inner scroll-element_track">
+                                        <div class="scroll-element_inner-bottom"></div>
+                                    </div>
+                                </div>
+                                <div class="scroll-bar" style="width: 96px;">
+                                    <div class="scroll-bar_body">
+                                        <div class="scroll-bar_body-inner"></div>
+                                    </div>
+                                    <div class="scroll-bar_bottom"></div>
+                                    <div class="scroll-bar_center"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scroll-element scroll-y">
+                            <div class="scroll-element_corner"></div>
+                            <div class="scroll-arrow scroll-arrow_less"></div>
+                            <div class="scroll-arrow scroll-arrow_more"></div>
+                            <div class="scroll-element_outer">
+                                <div class="scroll-element_size"></div>
+                                <div class="scroll-element_inner-wrapper">
+                                    <div class="scroll-element_inner scroll-element_track">
+                                        <div class="scroll-element_inner-bottom"></div>
+                                    </div>
+                                </div>
+                                <div class="scroll-bar" style="height: 96px;">
+                                    <div class="scroll-bar_body">
+                                        <div class="scroll-bar_body-inner"></div>
+                                    </div>
+                                    <div class="scroll-bar_bottom"></div>
+                                    <div class="scroll-bar_center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END BD-->
+                    <!--BEGIN FT-->
+                    <div class="box_ft ng-scope ng-hide">
+                        <div class="toolbar" id="tool_bar">
+                            <a class="web_wechat_face" href="javascript:;" title="表情"></a>
+                            <a class="web_wechat_screencut ng-isolate-scope" href="javascript:;" title="截屏"></a>
+                            <a class="web_wechat_pic js_fileupload ng-isolate-scope webuploader-container" href="javascript:;" title="图片和文件">
+                                <div class="webuploader-pick"></div>
+                                <div id="rt_rt_1apdikmsv1l381re5uqa1hsv16f1i" style="position: absolute; top: 0px; left: 0px; width: 30px; height: 30px; overflow: hidden; bottom: auto; right: auto;">
+                                    <input type="file" name="file" class="webuploader-element-invisible" multiple="multiple">
+                                    <label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="content ng-isolate-scope">
+                            <pre id="editArea" class="flex edit_area ng-isolate-scope ng-pristine ng-valid" contenteditable="true"></pre>
+                            <span class="caret_pos_helper" id="caretPosHelper"></span>
+                        </div>
+                        <div class="action">
+                            <span ng-if="isMacOS" class="desc ng-scope">按下Cmd+Enter换行</span>
+                            <a class="btn btn_send" href="javascript:;" ng-click="sendTextMessage()">发送</a>
+                        </div>
+                    </div>
+                    <!--END FT-->
+                </div>
+            </div>
+            <!--END chat-->
+        </div>
+    </div>
+</body>
+
+</html>
