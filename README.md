@@ -1,29 +1,16 @@
-## Flux Chat Example
-
-This is an example application we've created to show an example of how a Flux
-app is structured, and how you might use waitFor to make sure the Stores'
-registered callbacks are called in the correct order.
+## WeChat
+WeChat是使用Flux构建的React在线聊天应用，Style与微信网页版保持一致
 
 ## Running
 
-You must have [npm](https://www.npmjs.org/) installed on your computer.
-From the root project directory run these commands from the command line:
+必须安装[npm](https://www.npmjs.org/)
+在项目根目录下执行以下命令：
 
-`npm install`
+`npm install` or `cnpm install`
 
-This will install all dependencies.
+安装完所有依赖后，构建应用:
 
-To build the project, first run this command:
+`npm watch`
 
-`npm start`
-
-This will perform an initial build and start a watcher process that will
-update bundle.js with any changes you wish to make.  This watcher is
-based on [Browserify](http://browserify.org/) and
-[Watchify](https://github.com/substack/watchify), and it transforms
-React's JSX syntax into standard JavaScript with
-[Reactify](https://github.com/andreypopp/reactify).
-
-After starting the watcher, you can open `index.html` in your browser to
-open the app.
+在浏览器中打开`app.html`即可进入应用
 
