@@ -1,5 +1,4 @@
 var React = require('react');
-var Login = require('./Login/Login.react');
 var Header = require('./Panel/Header.react');
 var SearchBar = require('./Panel/SearchBar.react');
 var Tab = require('./Panel/Tab.react');
@@ -11,17 +10,34 @@ var BoxFooter = require('./ChatBox/Footer.react');
 var Logo = require("./Login/Logo.react");
 var LoginBox = require("./Login/LoginBox.react");
 var Copyright = require("./Login/Copyright.react");
+
+var Store = require('../stores/ChatStore');
+
 var style = {
     "height": "100%"
 };
-
+function getUsernameFromStores() {
+    return {
+        username: Store.getCurrentUsername(),
+    };
+}
 var Main = React.createClass({
-    render: function() {
+    componentDidMount() {
+        Store.addChangeListener(this._onChange);
+    },
+    
+    componentWillMount() {
+        Store.removeChangeListener(this._onChange);
+    },
+    
+    render() {
+        console.log(this.state)
+        var username = this.state ===null?'':this.state.username;
         return (
             <div className="main_inner">
             <Login/>
                 <div className="panel">
-                    <Header/>
+                    <Header username={username}/>
                     <SearchBar/>
                     <Tab/>
                     <div id="navView"></div>
@@ -36,6 +52,9 @@ var Main = React.createClass({
                 </div>
             </div>
         );
+    },
+    _onChange() {
+        this.setState(getUsernameFromStores());
     }
 });
 

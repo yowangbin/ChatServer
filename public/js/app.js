@@ -7,6 +7,6 @@ ReactDOM.render(
     document.getElementById('login')
 );
 ReactDOM.render(
-    <ChatApp.ChatApp/>,
+    <ChatApp.Main/>,
     document.getElementById('main')
 );

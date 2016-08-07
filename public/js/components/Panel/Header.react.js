@@ -9,7 +9,7 @@ var Header = React.createClass({
                 </div>
                 <div className="info">
                     <h3 className="nickname">
-                        <span className="display_name ng-binding">Aha！！</span>
+                        <span className="display_name ng-binding">{this.props.username}</span>
                         <a className="opt" href="javascript:;"><i className="web_wechat_add"></i></a>
                     </h3>
                 </div>
