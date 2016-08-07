@@ -4,7 +4,7 @@
     "description": "chat app",
     "main": "app.js",
     "scripts": {
-        "watch": "watchify -o js/bundle.js -v -d js/app.js"
+        "watch": "watchify -o public/js/bundle.js -v -d public/js/app.js"
     },
     "repository": {
         "type": "git",
@@ -34,8 +34,8 @@
         "levelup": "^1.3.2",
         "memdown": "^1.2.0",
         "object-assign": "^4.1.0",
-        "react": "^15.3.0",
-        "react-dom": "^15.3.0",
+        "react": "^15.2.1",
+        "react-dom": "^15.2.1",
         "readdirp": "^2.1.0",
         "set-immediate-shim": "^1.0.1",
         "socket.io": "^1.4.8",
@@ -45,15 +45,15 @@
     },
     "devDependencies": {
         "autod": "*",
+        "browserify": "^13.1.0",
         "envify": "~3.0.0",
         "istanbul-harmony": "*",
         "mocha": "~1.21.4",
-        "reactify": "~0.14.0",
+        "reactify": "^1.1.1",
         "should": "3.1.3",
         "supertest": "~0.15.0",
-        "watchify": "~1.0.2",
-        "browserify": "^13.1.0",
-        "uglify-js": "^2.7.0"
+        "uglify-js": "^2.7.0",
+        "watchify": "~1.0.2"
     },
     "browserify": {
         "transform": [
