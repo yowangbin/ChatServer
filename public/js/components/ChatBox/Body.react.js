@@ -1,7 +1,7 @@
 var React = require('react');
 var style = {
-    "margin-bottom": "0px",
-    "margin-right": "0px",
+    "marginBottom": "0px",
+    "marginRight": "0px",
     "height": "469px"
 };
 

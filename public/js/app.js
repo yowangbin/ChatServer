@@ -3,6 +3,10 @@ var ReactDOM = require('react-dom')
 var ChatApp = require("./components/ChatApp.react");
 
 ReactDOM.render(
-    <ChatApp />,
-    document.getElementById('react')
+    <ChatApp.Login/>,
+    document.getElementById('login')
+);
+ReactDOM.render(
+    <ChatApp.ChatApp/>,
+    document.getElementById('main')
 );

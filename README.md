@@ -9,6 +9,7 @@ make install
 make build
 node --harmony app.js
 ```
+浏览器中访问http://127.0.0.1:7001/
 
 ## Technology
 

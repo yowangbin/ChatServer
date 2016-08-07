@@ -5236,7 +5236,7 @@ html {
 body {
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "å¾®è½¯é›…é»‘", Arial, sans-serif;
     height: 100%;
-    background: url(/zh_CN/htmledition/v2/images/web_wechat_login_bg2e4e03.jpg) no-repeat center;
+    background: url(../../images/web_wechat_login_bg2e4e03.jpg) no-repeat center;
     -webkit-background-size: cover;
     background-size: cover
 }
