@@ -2,10 +2,10 @@ var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-
 var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
-var USERNAME = '';
+var USERNAME = null;
+var MESSAGE = null;
 var Store = assign({}, EventEmitter.prototype, {
 
   init: function(rawMessages) {
@@ -33,7 +33,11 @@ var Store = assign({}, EventEmitter.prototype, {
   getCurrentUsername: function () {
       console.log('getCurrentUsername');
       return USERNAME;
-  } 
+  },
+
+  createNewMessage:function(){
+      return MESSAGE;
+  }
 });
 
 Store.dispatchToken = ChatAppDispatcher.register(function(action) {
@@ -43,7 +47,13 @@ Store.dispatchToken = ChatAppDispatcher.register(function(action) {
     case ActionTypes.LOGINSUCCESS:
       console.log('emit LOGINSUCCESS');
       USERNAME = action.username; 
-      Store.emitChange();   
+      Store.emitChange();
+      break;
+    
+    case ActionTypes.CREATEMESSAGE:
+      console.log('create menssage');
+      MESSAGE = action.message;
+      Store.emitChange();
       break;
 
     default:

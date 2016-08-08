@@ -1,6 +1,6 @@
 var React = require('react');
 var ActionCreator = require('../../actions/ActionCreator');
-var ENTER_KEY_CODE=13;
+var ChatConstants = require('../../constants/ChatConstants');
 var LoginBox = React.createClass({
     getInitialState:function(){
         return {text:''}
@@ -9,7 +9,7 @@ var LoginBox = React.createClass({
     render: function() {
         return (
             <div className="login_box">
-                <input type="text"
+                <input type="text" className="frm_input_box"
                 ref="username"    
                    value={this.state.text}
                    onChange={this._onChange}
@@ -22,7 +22,7 @@ var LoginBox = React.createClass({
         this.setState({text:e.target.value})
     },
     _onKeyDown:function(e){
-        if (this.state.text != "" && e.which === ENTER_KEY_CODE) {
+        if (this.state.text != "" && e.which === ChatConstants.ENTER_KEY_CODE) {
             document.body.className = "loaded";
             ActionCreator.login(e.target.value);
         }

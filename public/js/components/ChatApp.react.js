@@ -16,11 +16,7 @@ var Store = require('../stores/ChatStore');
 var style = {
     "height": "100%"
 };
-function getUsernameFromStores() {
-    return {
-        username: Store.getCurrentUsername(),
-    };
-}
+
 var Main = React.createClass({
     componentDidMount() {
         Store.addChangeListener(this._onChange);
@@ -33,6 +29,7 @@ var Main = React.createClass({
     render() {
         console.log(this.state)
         var username = this.state ===null?'':this.state.username;
+        var newMessage=this.state===null?'':this.state.newMessage;
         return (
             <div className="main_inner">
             <Login/>
@@ -46,7 +43,7 @@ var Main = React.createClass({
                 <div style={style}>
                     <div id="chatArea" className="box chat">
                         <BoxHeader/>
-                        <BoxBody/>
+                        <BoxBody newMessage={newMessage}/>
                         <BoxFooter/>
                     </div>
                 </div>
@@ -54,7 +51,10 @@ var Main = React.createClass({
         );
     },
     _onChange() {
-        this.setState(getUsernameFromStores());
+        this.setState({
+            username:Store.getCurrentUsername(),
+            newMessage:Store.createNewMessage()
+        });
     }
 });
 

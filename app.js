@@ -56,11 +56,12 @@ app = module.exports = http.createServer(app.callback());
 /**
  * io
  */
-io(app).on('connection',function(socket){
+io(app).on('connection', function (socket) {
     console.log('new user')
-    socket.on('new message',function(data){
+    socket.on('new message', function (data) {
         console.log(data)
-    })
+        socket.emit('new message', data);
+    });
 })
 if (!module.parent) {
     app.listen(config.port);
