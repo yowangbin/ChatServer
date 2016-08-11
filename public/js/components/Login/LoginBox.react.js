@@ -1,6 +1,7 @@
 var React = require('react');
 var ActionCreator = require('../../actions/ActionCreator');
 var ChatConstants = require('../../constants/ChatConstants');
+var Socket=require("../../utils/socket");
 var LoginBox = React.createClass({
     getInitialState() {
         return { text: '' };
@@ -22,10 +23,11 @@ var LoginBox = React.createClass({
         this.setState({ text: e.target.value });
     },
     _onKeyDown(e) {
+        var username=e.target.value;
         if (this.state.text != "" && e.which === ChatConstants.ENTER_KEY_CODE) {
             document.body.className = "loaded";
-            ActionCreator.login(e.target.value);
-            ActionCreator.getActiveUsersList(e.target.value);
+            Socket.emit('add user', username);
+            ActionCreator.login(username);
         }
     }
 });

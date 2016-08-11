@@ -87,11 +87,6 @@ io(app).on('connection', function (socket) {
       newUser: username,
       userList:userList
     });
-    // echo globally (all clients) that a person has connected
-    // socket.emit('user joined', {
-    //   username: socket.username,
-    //   numUsers: numUsers
-    // });
   });
 
   // when the client emits 'typing', we broadcast it to others
@@ -110,14 +105,10 @@ io(app).on('connection', function (socket) {
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
-    // if (addedUser) {
-
-    //   // echo globally that this client has left
-    //   socket.broadcast.emit('user left', {
-    //     username: socket.username,
-    //     numUsers: numUsers
-    //   });
-    // }
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+      });
   });
 });
 if (!module.parent) {
