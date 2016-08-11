@@ -1,6 +1,6 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
-var Socket = require('../utils/Socket');
+window.Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
 // window.Socket = Socket;
 // // Whenever the server emits 'login', log the login message
@@ -32,13 +32,18 @@ Socket.on('stop typing', function (data) {
 });
 module.exports = {
     login: function (username) {
-        Socket.emit('add user',username);
+        Socket.emit('add user', username);
+        ChatAppDispatcher.dispatch({
+            type: ActionTypes.LOGIN,
+            activeUser: username,
+        });
+    },
+    getActiveUsersList: function () {
         Socket.on('user joined', function (data) {
-            console.log(data.username + ' joined');
             ChatAppDispatcher.dispatch({
-                type: ActionTypes.LOGIN,
-                name: data.username,
-                list: data.userList
+                type: ActionTypes.GETACTIVEUSERSLIST,
+                list: data.userList,
+                newUser: data.name
             });
         });
     },

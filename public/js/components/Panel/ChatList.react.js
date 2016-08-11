@@ -41,7 +41,7 @@ var ChatList = React.createClass({
 var ChatItem=React.createClass({
     render() {
         return (
-            <div className="scroll-wrapper chat_list scrollbar-dynamic" style={{position: 'relative'}}>
+            <div style={{position: 'relative'}}>
                 <div>
                     <div className="top-placeholder" style={{height: '0px'}}></div>
                 <div>
@@ -58,7 +58,7 @@ var ChatItem=React.createClass({
                 </div>
                 <div className="info">
                     <h3 className="nickname">
-                        <span className="nickname_text">东北大学大连校友会微信1群</span>
+                        <span className="nickname_text">{this.props.name}</span>
                     </h3>
                     <p className="msg">
                         <span>[3条]</span>
@@ -67,9 +67,8 @@ var ChatItem=React.createClass({
                </div>
             </div>
         </div>
-        <div className="bottom-placeholder" style={{height: '3136px'}}></div>
-        </div>
-        </div>
+    </div>
+    </div>
         );
     }
 });

@@ -80,7 +80,11 @@ io(app).on('connection', function (socket) {
     userList.push({id:socket.id,name:username});
     addedUser = true;
     socket.emit('user joined', {
-      username: username,
+      newUser: username,
+      userList:userList
+    });
+    socket.broadcast.emit('user joined', {
+      newUser: username,
       userList:userList
     });
     // echo globally (all clients) that a person has connected
