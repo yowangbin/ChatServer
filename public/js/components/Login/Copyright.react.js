@@ -7,7 +7,7 @@ var Copyright = React.createClass({
                 <p className="desc">© yowangbin@gmail.com</p>
             </div>
 
-        )
+        );
     }
 });
 

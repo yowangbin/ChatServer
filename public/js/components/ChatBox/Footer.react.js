@@ -26,6 +26,6 @@ var BoxFooter = React.createClass({
 			ActionCreator.createMessage(e.target.textContent);
 		}
 	}
-})
+});
 
 module.exports = BoxFooter;

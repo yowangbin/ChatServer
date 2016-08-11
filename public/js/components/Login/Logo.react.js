@@ -6,7 +6,7 @@ var Logo = React.createClass({
             <div className="logo">
               	<i className="web_wechat_login_logo"></i>
           	</div>
-        )
+        );
     }
 });
 

@@ -8,48 +8,54 @@ var USERNAME = null;
 var MESSAGE = null;
 var Store = assign({}, EventEmitter.prototype, {
 
-  init: function(rawMessages) {
+  init: function (rawMessages) {
 
   },
 
-  emitChange: function() {
+  emitChange: function () {
     this.emit(CHANGE_EVENT);
   },
 
   /**
    * @param {function} callback
    */
-  addChangeListener: function(callback) {
+  addChangeListener: function (callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
   /**
    * @param {function} callback
    */
-  removeChangeListener: function(callback) {
+  removeChangeListener: function (callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getCurrentUsername: function () {
-      console.log('getCurrentUsername');
-      return USERNAME;
+  /**
+   * @param {function} callback
+   */
+  getUserInfo:function(){
+    return {name:USERNAME};
   },
 
-  createNewMessage:function(){
-      return MESSAGE;
+  /**
+   * @param {function} callback
+   */
+  getUserList:function(){
+    return {list:USERLIST,total:USERLIST.length};
   }
 });
 
-Store.dispatchToken = ChatAppDispatcher.register(function(action) {
+Store.dispatchToken = ChatAppDispatcher.register(function (action) {
 
-  switch(action.type) {
+  switch (action.type) {
 
-    case ActionTypes.LOGINSUCCESS:
+    case ActionTypes.LOGIN:
       console.log('emit LOGINSUCCESS');
-      USERNAME = action.username; 
+      USERNAME = action.name;
+      USERLIST = action.list;
       Store.emitChange();
       break;
-    
+
     case ActionTypes.CREATEMESSAGE:
       console.log('create menssage');
       MESSAGE = action.message;
@@ -57,7 +63,7 @@ Store.dispatchToken = ChatAppDispatcher.register(function(action) {
       break;
 
     default:
-      // do nothing
+    // do nothing
   }
 
 });

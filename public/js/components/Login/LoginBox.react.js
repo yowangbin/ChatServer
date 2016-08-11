@@ -3,7 +3,7 @@ var ActionCreator = require('../../actions/ActionCreator');
 var ChatConstants = require('../../constants/ChatConstants');
 var LoginBox = React.createClass({
     getInitialState:function(){
-        return {text:''}
+        return {text:''};
     },
     
     render: function() {
@@ -16,10 +16,10 @@ var LoginBox = React.createClass({
                    onKeyDown={this._onKeyDown}
                    />
             </div>
-        )
+        );
     },
     _onChange:function(e){
-        this.setState({text:e.target.value})
+        this.setState({text:e.target.value});
     },
     _onKeyDown:function(e){
         if (this.state.text != "" && e.which === ChatConstants.ENTER_KEY_CODE) {

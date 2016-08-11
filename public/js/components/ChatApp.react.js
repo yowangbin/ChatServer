@@ -11,30 +11,18 @@ var Logo = require("./Login/Logo.react");
 var LoginBox = require("./Login/LoginBox.react");
 var Copyright = require("./Login/Copyright.react");
 
-var Store = require('../stores/ChatStore');
 
 var style = {
     "height": "100%"
 };
 
 var Main = React.createClass({
-    componentDidMount() {
-        Store.addChangeListener(this._onChange);
-    },
-    
-    componentWillMount() {
-        Store.removeChangeListener(this._onChange);
-    },
-    
     render() {
-        console.log(this.state)
-        var username = this.state ===null?'':this.state.username;
-        var newMessage=this.state===null?'':this.state.newMessage;
         return (
             <div className="main_inner">
             <Login/>
                 <div className="panel">
-                    <Header username={username}/>
+                    <Header/>
                     <SearchBar/>
                     <Tab/>
                     <div id="navView"></div>
@@ -43,18 +31,12 @@ var Main = React.createClass({
                 <div style={style}>
                     <div id="chatArea" className="box chat">
                         <BoxHeader/>
-                        <BoxBody newMessage={newMessage}/>
+                        <BoxBody/>
                         <BoxFooter/>
                     </div>
                 </div>
             </div>
         );
-    },
-    _onChange() {
-        this.setState({
-            username:Store.getCurrentUsername(),
-            newMessage:Store.createNewMessage()
-        });
     }
 });
 
@@ -67,9 +49,9 @@ var Login = React.createClass({
                 <LoginBox/>
                 <Copyright/>
             </div>
-        )
+        );
     }
-})
+});
 
 module.exports = {
     Login: Login,
