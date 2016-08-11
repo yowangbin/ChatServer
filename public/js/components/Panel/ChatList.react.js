@@ -19,11 +19,11 @@ var ChatList = React.createClass({
         Store.addChangeListener(this._onChange);
     },
     render(){
-        var ListItems = this.state.list.map(function(name) {
+        var ListItems = this.state.list.map(function(item) {
         return (
         <ChatItem
-          key={new Date()}
-          name={name}
+          key={item.id}
+          name={item.name}
         />
       );
     });
