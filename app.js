@@ -77,7 +77,7 @@ io(app).on('connection', function (socket) {
     if (addedUser) return;
     // we store the username in the socket session for this client
     socket.username = username;
-    userList.push({id:socket.id,name:username});
+    userList.push({id:socket.id,name:username,loginTime:new Date(socket.handshake.time).getTime()});
     addedUser = true;
     socket.emit('user joined', {
       newUser: username,

@@ -3,72 +3,74 @@ var Store = require('../../stores/ChatStore');
 
 var style = {
     'visibility': 'visible',
-    'width': 'auto'
+    'width': 'auto',
+    overflowY: 'auto'
 };
 var ChatList = React.createClass({
     getInitialState() {
         return {
-            list:[]
+            list: []
         };
     },
-    
+
     componentWillMount() {
-    Store.removeChangeListener(this._onChange);
+        Store.removeChangeListener(this._onChange);
     },
     componentDidMount() {
         Store.addChangeListener(this._onChange);
     },
-    render(){
-        var ListItems = this.state.list.map(function(item) {
-        return (
-        <ChatItem
-          key={item.id}
-          name={item.name}
-        />
-      );
-    });
+    render() {
+        var ListItems = this.state.list.map(function (item) {
+            return (
+                <ChatItem
+                    key={item.id}
+                    name={item.name}
+                    time={new Date(item.loginTime).toTimeString().substr(0, 5) }
+                    />
+            );
+        });
         return (
             <div className="nav_view" style={style}>
-            {ListItems}
+                {ListItems}
             </div>
         );
     },
-    _onChange(){
+    _onChange() {
         this.setState(Store.getUserList());
     }
 });
 
-var ChatItem=React.createClass({
+var ChatItem = React.createClass({
     render() {
         return (
-            <div style={{position: 'relative'}}>
+            <div style={{ position: 'relative' }}>
                 <div>
-                    <div className="top-placeholder" style={{height: '0px'}}></div>
-                <div>
-                <div className="chat_item slide-left">
-                    <div className="ext">
-                        <p className="attr">17:18</p>
-                        <p className="attr">
-                            <i className="web_wechat_no-remind"></i>
-                        </p>
+                    <div className="top-placeholder" style={{ height: '0px' }}></div>
+                    <div>
+                        <div className="chat_item slide-left">
+                            <div className="ext">
+                                <p className="attr">{this.props.time}</p>
+                                <p className="attr">
+                                    <i className="web_wechat_no-remind"></i>
+                                </p>
+                            </div>
+                            <div className="avatar">
+                                <img className="img" src="" alt=""/>
+                                <i className="icon web_wechat_reddot"></i>
+                            </div>
+                            <div className="info">
+                                <h3 className="nickname">
+                                    <span className="nickname_text">{this.props.name}</span>
+                                </h3>
+                                <p className="msg">
+                                    <span></span>
+                                    <span>{this.props.time}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                <div className="avatar">
-                    <img className="img" src="" alt=""/>
-                    <i className="icon web_wechat_reddot"></i>
                 </div>
-                <div className="info">
-                    <h3 className="nickname">
-                        <span className="nickname_text">{this.props.name}</span>
-                    </h3>
-                    <p className="msg">
-                        <span>[3条]</span>
-                        <span>10自动化-石璐:海洋依旧那么蠢萌</span>
-                    </p>
-               </div>
             </div>
-        </div>
-    </div>
-    </div>
         );
     }
 });

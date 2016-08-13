@@ -3,11 +3,12 @@ var ChatConstants = require('../constants/ChatConstants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var ActionTypes = ChatConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-var ACTIVEUSER = null;
-var MESSAGE = null;
-var NEWUSER=null;
-var USERLIST=[];
+// 全局变量
+var CHANGE_EVENT = 'change'; //事件
+var ACTIVEUSER = null;       //当前登录用户
+var MESSAGE = null;          //
+var NEWUSER=null;            //新用户
+var USERLIST=[];             //用户列表
 var Store = assign({}, EventEmitter.prototype, {
 
   init: function (rawMessages) {
