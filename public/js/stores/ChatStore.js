@@ -51,7 +51,6 @@ var Store = assign({}, EventEmitter.prototype, {
 Store.dispatchToken = ChatAppDispatcher.register(function (action) {
 
   switch (action.type) {
-
     case ActionTypes.LOGIN:
       ACTIVEUSER = action.activeUser;
       Store.emitChange();

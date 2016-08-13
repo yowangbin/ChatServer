@@ -1,5 +1,4 @@
 var React = require('react');
-var Store = require('../../stores/ChatStore');
 
 var style = {
     'visibility': 'visible',
@@ -7,19 +6,6 @@ var style = {
     overflowY: 'auto'
 };
 var ChatList = React.createClass({
-    getInitialState() {
-        return {
-            list: []
-        };
-    },
-
-    componentWillMount() {
-        Store.removeChangeListener(this._onChange);
-    },
-    componentDidMount() {
-        Store.addChangeListener(this._onChange);
-    },
-
     render() {
         return (
             <div className="nav_view" style={{ visibility: 'visible', width: 'auto' }}>
@@ -47,9 +33,6 @@ var ChatList = React.createClass({
     //         </div>
     //     );
     // },
-    _onChange() {
-        this.setState(Store.getUserList());
-    }
 });
 
 var ChatItem = React.createClass({
@@ -58,7 +41,6 @@ var ChatItem = React.createClass({
             <div style={{ position: 'relative' }}>
                 <div>
                     <div className="top-placeholder" style={{ height: '0px' }}></div>
-                    <p className="ico_loading">热门暂未开放...</p>
                     <div>
                         <div className="chat_item slide-left">
                             <div className="ext">

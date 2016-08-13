@@ -4,7 +4,7 @@ var Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
 
 Socket.on('login', function (data) {
-
+ 
 });
 Socket.on('user joined', function (data) {
     ActionCreator.getActiveUsersList(data);
@@ -30,18 +30,6 @@ var ActionCreator = {
             type: ActionTypes.GETACTIVEUSERSLIST,
             list: data.userList,
             newUser: data.name
-        });
-    },
-    logout:function(){
-
-    },
-    createMessage: function (message) {
-        Socket.emit('new message', message);
-        Socket.on('new message', function (data) {
-            ChatAppDispatcher.dispatch({
-                type: ActionTypes.CREATEMESSAGE,
-                message: data
-            });
         });
     }
 };
