@@ -9,6 +9,7 @@ var ACTIVEUSER = null;       //当前登录用户
 var MESSAGE = null;          //
 var USERNAME=null;           //用户名
 var USERLIST=[];             //用户列表
+var CHATLIST=[];             //聊天列表
 var Store = assign({}, EventEmitter.prototype, {
 
   init: function (rawMessages) {
@@ -45,6 +46,13 @@ var Store = assign({}, EventEmitter.prototype, {
    */
   getUserList:function(){
     return {list:USERLIST,total:USERLIST.length};
+  },
+
+  /**
+   * @param {function} callback
+   */
+  getAllChat:function(){
+    return {list:CHATLIST};
   }
 });
 
@@ -62,6 +70,9 @@ Store.dispatchToken = ChatAppDispatcher.register(function (action) {
       Store.emitChange();
       break;
 
+    case ActionTypes.GETALLCHAT:
+      CHATLIST=action.list;
+      Store.emitChange();
     default:
     // do nothing
   }

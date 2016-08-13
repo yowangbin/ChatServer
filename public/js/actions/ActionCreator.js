@@ -4,15 +4,21 @@ var Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
 
 Socket.on('login', function (data) {
- 
+
 });
+
 Socket.on('user joined', function (data) {
     ActionCreator.getActiveUsersList(data);
 });
 Socket.on('user left', function (data) {
-    console.log(data.username + ' left');
     ActionCreator.getActiveUsersList(data);
 });
+Socket.on('new message',function(data){
+    ActionCreator.sendMessage(data);
+});
+Socket.on('get message',function(data){
+    ActionCreator.sendMessage(data);
+})
 Socket.on('typing', function (data) {
 
 });
@@ -20,6 +26,12 @@ Socket.on('stop typing', function (data) {
 
 });
 var ActionCreator = {
+    sendMessage: function (data) {
+        ChatAppDispatcher.dispatch({
+            type:ActionTypes.GETALLCHAT,
+            list:data.list
+        });
+    },
     login: function (username) {
         ChatAppDispatcher.dispatch({
             type: ActionTypes.LOGIN,
@@ -31,8 +43,9 @@ var ActionCreator = {
             type: ActionTypes.GETACTIVEUSERSLIST,
             list: data.userList,
             username: data.username
-        });
+        }); 
     }
+
 };
 
-module.exports=ActionCreator;
+module.exports=ActionCreator;    

@@ -20,6 +20,8 @@ var io = require('socket.io');
 var db = require('./models/db');
 var app = koa();
 var router = middlewares.router();
+var randomID = require("random-id");
+
 /**
  * ignore favicon
  */
@@ -59,15 +61,23 @@ app = module.exports = http.createServer(app.callback());
  */
 var USERNUMBER = 0;
 var USERLIST = [];
+var CHATLIST = [];
 io(app).on('connection', function (socket) {
   var addedUser = false;
+
   socket.on('new message', function (data) {
+    var stamp=new Date(socket.handshake.time).getTime();
+    CHATLIST.push({id:randomID(),name:socket.username,content:data,stamp:stamp});
     socket.emit('new message', {
       username: socket.username,
-      message: data
+      list: CHATLIST
     });
-
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      list: CHATLIST
+    });
   });
+
 
   socket.on('add user', function (username) {
     if (addedUser) return;
@@ -78,17 +88,22 @@ io(app).on('connection', function (socket) {
       username: username,
       userList: USERLIST
     });
+    socket.emit('get message', {
+      username: username,
+      list: CHATLIST
+    });
     socket.broadcast.emit('user joined', {
       username: username,
       userList: USERLIST
     });
+
   });
 
   socket.on('disconnect', function () {
     if (addedUser) {
-      for(var i=0,l=USERLIST.length;i<l;i++){
-        if(USERLIST[i].name===socket.username)
-          USERLIST.splice(i,1);
+      for (var i = 0, l = USERLIST.length; i < l; i++) {
+        if (USERLIST[i].name === socket.username)
+          USERLIST.splice(i, 1);
       }
       socket.broadcast.emit('user left', {
         username: socket.username,

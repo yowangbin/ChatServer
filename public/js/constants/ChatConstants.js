@@ -5,6 +5,6 @@ module.exports = {
     ActionTypes: keyMirror({
         LOGIN: null,
         GETACTIVEUSERSLIST:null,
-        CREATEMESSAGE: null
+        GETALLCHAT: null
     })
 };
