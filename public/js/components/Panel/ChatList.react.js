@@ -19,22 +19,34 @@ var ChatList = React.createClass({
     componentDidMount() {
         Store.addChangeListener(this._onChange);
     },
+
     render() {
-        var ListItems = this.state.list.map(function (item) {
-            return (
-                <ChatItem
-                    key={item.id}
-                    name={item.name}
-                    time={new Date(item.loginTime).toTimeString().substr(0, 5) }
-                    />
-            );
-        });
         return (
-            <div className="nav_view" style={style}>
-                {ListItems}
+            <div className="nav_view" style={{ visibility: 'visible', width: 'auto' }}>
+                <div className="scroll-wrapper read_list scrollbar-dynamic" style={{ position: 'relative' }}>
+                    <div className="read_list scrollbar-dynamic scroll-content" style={{ marginBottom: '0px', marginRight: '0px', height: '549px' }}>
+                        <p className="ico_loading">私聊暂未开放...</p>
+                    </div>
+                </div>
             </div>
         );
     },
+    // render() {
+    //     var ListItems = this.state.list.map(function (item) {
+    //         return (
+    //             <ChatItem
+    //                 key={item.id}
+    //                 name={item.name}
+    //                 time={new Date(item.loginTime).toTimeString().substr(0, 5) }
+    //                 />
+    //         );
+    //     });
+    //     return (
+    //         <div className="nav_view" style={style}>
+    //             {ListItems}
+    //         </div>
+    //     );
+    // },
     _onChange() {
         this.setState(Store.getUserList());
     }
@@ -46,6 +58,7 @@ var ChatItem = React.createClass({
             <div style={{ position: 'relative' }}>
                 <div>
                     <div className="top-placeholder" style={{ height: '0px' }}></div>
+                    <p className="ico_loading">热门暂未开放...</p>
                     <div>
                         <div className="chat_item slide-left">
                             <div className="ext">
