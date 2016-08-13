@@ -11,6 +11,7 @@ Socket.on('user joined', function (data) {
 });
 Socket.on('user left', function (data) {
     console.log(data.username + ' left');
+    ActionCreator.getActiveUsersList(data);
 });
 Socket.on('typing', function (data) {
 
@@ -29,7 +30,7 @@ var ActionCreator = {
         ChatAppDispatcher.dispatch({
             type: ActionTypes.GETACTIVEUSERSLIST,
             list: data.userList,
-            newUser: data.name
+            username: data.username
         });
     }
 };

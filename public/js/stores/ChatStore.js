@@ -7,7 +7,7 @@ var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change'; //事件
 var ACTIVEUSER = null;       //当前登录用户
 var MESSAGE = null;          //
-var NEWUSER=null;            //新用户
+var USERNAME=null;           //用户名
 var USERLIST=[];             //用户列表
 var Store = assign({}, EventEmitter.prototype, {
 
@@ -57,7 +57,7 @@ Store.dispatchToken = ChatAppDispatcher.register(function (action) {
       break;
 
     case ActionTypes.GETACTIVEUSERSLIST:
-      NEWUSER = action.newUser;
+      USERNAME = action.username;
       USERLIST = action.list;
       Store.emitChange();
       break;
