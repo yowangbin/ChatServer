@@ -21,9 +21,9 @@ var TabsControl = React.createClass({
     getInitialState() {
         return {
             tabs: [
-                { tabName: "用户列表", id: 1 },
-                { tabName: "私信", id: 2 },
-                { tabName: "阅读", id: 3 }
+                { tabName: "用户", id: 1 },
+                { tabName: "私聊", id: 2 },
+                { tabName: "热门", id: 3 }
             ],
             currentIndex: 1
         };

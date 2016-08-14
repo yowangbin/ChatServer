@@ -26,7 +26,7 @@ var Header = React.createClass({
                 <div className="info">
                     <h3 className="nickname">
                         <span className="display_name ng-binding">{this.state.name}</span>
-                        <a className="opt" href="javascript:;"><i className="web_wechat_add" onClick={this._showMenu}></i></a>
+                       {/** <a className="opt" href="javascript:;"><i className="web_wechat_add" onClick={this._showMenu}></i></a> */} 
                     </h3>
                 </div>
             </div>

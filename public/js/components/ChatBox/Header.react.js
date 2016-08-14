@@ -11,15 +11,19 @@ var BoxHeader = React.createClass({
                 <div id="chatRoomMembersWrap">
 
                 </div>
-                <div className="title_wrap">
+                {
+                    /**
+                     *      <div className="title_wrap">
                    	<div className="title poi">
-                        {/**
+                        
                             <a className="title_name"></a>
                             <i className="web_wechat_down_icon"></i>
-                         */}
+                        
                         
                     </div>
                	</div>
+                     */
+                }
            	</div>
         );
     }
