@@ -42,12 +42,12 @@ var MessageMe = React.createClass({
 				<div className="clearfix">
 					<div style={{ overflow: 'hidden' }}>
 						<div className="message me">
-							<img className="avatar" src="" title="Aha！！"/>
+							<img className="avatar" src="" title={this.props.name}/>
 							<div className="content">
 								<div className="bubble js_message_bubble bubble_primary right">
 									<div className="bubble_cont">
 										<div className="plain">
-											<pre className="js_message_plain"></pre>
+											<pre className="js_message_plain">{this.props.content}</pre>
 										</div>
 									</div>
 								</div>
@@ -86,13 +86,15 @@ var BoxBody = React.createClass({
         Store.addChangeListener(this._onChange);
     },
 	componentDidUpdate(prevProps, prevState) {
-		console.log('hi')
 		this._scrollToBottom();
 	},
 
     render() {
 		var ChatContent = this.state.list.map(function (item, index) {
-			return <MessageYou key={item.id} name={item.name} content={item.content}/>
+			if (Store.getUserInfo().name === item.name)
+				return <MessageMe key={item.key} name={item.name} content={item.content}/>
+			else
+				return <MessageYou key={item.key} name={item.name} content={item.content}/>
 		});
         return (
             <div className="scroll-wrapper box_bd chat_bd scrollbar-dynamic" style={{ 'position': 'absolute' }}>
@@ -111,7 +113,7 @@ var BoxBody = React.createClass({
             this.setState(Store.getAllChat());
 	},
 	_scrollToBottom: function () {
-		this.refs.scrollContent.scrollTop=this.refs.scrollContent.scrollHeight;
+		this.refs.scrollContent.scrollTop = this.refs.scrollContent.scrollHeight;
     },
 });
 

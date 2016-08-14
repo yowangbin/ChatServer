@@ -9,21 +9,39 @@ var BoxFooter = require('./ChatBox/Footer.react');
 var Logo = require("./Login/Logo.react");
 var LoginBox = require("./Login/LoginBox.react");
 var Copyright = require("./Login/Copyright.react");
-
-
+var Pubsub = require('pubsub-js');
+var Menu=require('./Login/Menu.react');
 var style = {
     "height": "100%"
 };
 
 var Main = React.createClass({
+    getInitialState(){
+        return {
+            showMenu:false
+        }
+    },
+    componentDidMount: function () {
+        this.pubsub_token = Pubsub.subscribe('show menu', function (topic, key) {
+            this.setState({
+                showMenu:key 
+            });
+        }.bind(this));
+    },
+    componentWillUnmount: function () {
+        PubSub.unsubscribe(this.pubsub_token);
+    },
     render() {
+        var Panel;
+        if(this.state.showMenu)
+            Panel=<Menu/>
         return (
             <div className="main_inner">
-            <Login/>
+                <Login/>
                 <div className="panel">
                     <Header/>
-                    <SearchBar/>
                     <Tab/>
+                    {Panel}
                 </div>
                 <div style={style}>
                     <div id="chatArea" className="box chat">
@@ -39,7 +57,7 @@ var Main = React.createClass({
 
 
 var Login = React.createClass({
-    render: function() {
+    render: function () {
         return (
             <div>
                 <Logo/>

@@ -67,7 +67,7 @@ io(app).on('connection', function (socket) {
 
   socket.on('new message', function (data) {
     var stamp=new Date(socket.handshake.time).getTime();
-    CHATLIST.push({id:randomID(),name:socket.username,content:data,stamp:stamp});
+    CHATLIST.push({id:socket.id,key:randomID(),name:socket.username,content:data,stamp:stamp});
     socket.emit('new message', {
       username: socket.username,
       list: CHATLIST
@@ -88,7 +88,7 @@ io(app).on('connection', function (socket) {
       username: username,
       userList: USERLIST
     });
-    socket.emit('get message', {
+    socket.broadcast.emit('get message', {
       username: username,
       list: CHATLIST
     });
