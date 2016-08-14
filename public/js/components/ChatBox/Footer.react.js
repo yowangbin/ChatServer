@@ -12,9 +12,14 @@ var BoxFooter = React.createClass({
 	render() {
 		return (
             <div className="box_ft">
+				{
+					/**
+					<a className="web_wechat_face" href="javascript:;" title="表情"></a>
+					<a className="web_wechat_screencut" href="javascript:;" title="截屏"></a>
+					 */
+				}
                 <div className="toolbar" id="tool_bar">
-                   	<a className="web_wechat_face" href="javascript:;" title="表情"></a>
-                   	<a className="web_wechat_screencut" href="javascript:;" title="截屏"></a>
+
                 </div>
                 <div className="content">
 					<pre id="editArea"

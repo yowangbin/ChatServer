@@ -1,10 +1,11 @@
 var React = require('react');
 var Store = require('../../stores/ChatStore');
-var Pubsub=require('pubsub-js');
+var Pubsub = require('pubsub-js');
 
 var Header = React.createClass({
     getInitialState() {
-        this.showMenu=false;
+        this.showMenu = false;
+        this.showProfile = false;
         return {
             name: ''
         };
@@ -20,7 +21,7 @@ var Header = React.createClass({
         return (
             <div className="header">
                 <div className="avatar">
-                    <img className="img" src=""/>
+                    <img className="img" onClick={this._showProfile} src=""/>
                 </div>
                 <div className="info">
                     <h3 className="nickname">
@@ -31,9 +32,13 @@ var Header = React.createClass({
             </div>
         );
     },
+    _showProfile() {
+        this.showProfile = this.showProfile === false ? true : false;
+        Pubsub.publish('show profile', this.showProfile);
+    },
     _showMenu() {
         this.showMenu = this.showMenu === false ? true : false;
-        Pubsub.publish('show menu',this.showMenu);        
+        Pubsub.publish('show menu', this.showMenu);
     },
     _onChange(data) {
         this.setState(Store.getUserInfo());
