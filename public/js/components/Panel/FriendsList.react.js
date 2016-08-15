@@ -44,7 +44,7 @@ var ContactItem = React.createClass({
             <div>
                 <div className="contact_item ">
                     <div className="avatar">
-                        <img className="img lazy" src="" alt=""/>
+                        <img className="img lazy" src="../../images/avatars/1.jpg" alt=""/>
                     </div>
                     <div className="info">
                         <h4 className="nickname">{this.props.name}</h4>

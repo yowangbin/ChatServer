@@ -25,7 +25,7 @@ var randomID = require("random-id");
 /**
  * ignore favicon
  */
-app.use(middlewares.favicon());
+app.use(middlewares.favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 /**
  * response time header
@@ -64,10 +64,9 @@ var USERLIST = [];
 var CHATLIST = [];
 io(app).on('connection', function (socket) {
   var addedUser = false;
-
   socket.on('new message', function (data) {
-    var stamp=new Date(socket.handshake.time).getTime();
-    CHATLIST.push({id:socket.id,key:randomID(),name:socket.username,content:data,stamp:stamp});
+    var stamp = new Date(socket.handshake.time).getTime();
+    CHATLIST.push({ id: socket.id, key: randomID(), name: socket.username, content: data, stamp: stamp });
     socket.emit('new message', {
       username: socket.username,
       list: CHATLIST
@@ -96,12 +95,14 @@ io(app).on('connection', function (socket) {
       username: username,
       userList: USERLIST
     });
-
   });
+  
 
   socket.on('disconnect', function () {
+    console.log('disconnect')
     if (addedUser) {
       for (var i = 0, l = USERLIST.length; i < l; i++) {
+        console.log(USERLIST[i].name)
         if (USERLIST[i].name === socket.username)
           USERLIST.splice(i, 1);
       }
@@ -114,16 +115,19 @@ io(app).on('connection', function (socket) {
 
   socket.on('typing', function () {
     socket.broadcast.emit('typing', {
-      username: socket.username
+      username: socket.username,
+      typing: true
     });
   });
 
   socket.on('stop typing', function () {
     socket.broadcast.emit('stop typing', {
-      username: socket.username
+      username: socket.username,
+      typing: false
     });
   });
 });
+
 if (!module.parent) {
   app.listen(config.port);
   console.log('$ open http://127.0.0.1:' + config.port);

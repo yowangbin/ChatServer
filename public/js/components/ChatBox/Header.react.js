@@ -1,6 +1,20 @@
 var React = require('react');
+var Store=require('../../stores/ChatStore');
 
 var BoxHeader = React.createClass({
+    getInitialState() {
+        return {
+            status: ''
+        }
+    },
+
+    componentWillMount() {
+        Store.removeChangeListener(this._onChange);
+    },
+    componentDidMount() {
+        Store.addChangeListener(this._onChange);
+    },
+
     render() {
         return (
             <div className="box_hd">
@@ -11,21 +25,17 @@ var BoxHeader = React.createClass({
                 <div id="chatRoomMembersWrap">
 
                 </div>
-                {
-                    /**
-                     *      <div className="title_wrap">
+                <div className="title_wrap">
                    	<div className="title poi">
-                        
-                            <a className="title_name"></a>
-                            <i className="web_wechat_down_icon"></i>
-                        
-                        
+                        <a className="title_name">{this.state.status}</a>
                     </div>
                	</div>
-                     */
-                }
+
            	</div>
         );
+    },
+    _onChange() {
+        this.setState(Store.getTypingUser());
     }
 });
 

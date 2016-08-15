@@ -21,7 +21,7 @@ var Header = React.createClass({
         return (
             <div className="header">
                 <div className="avatar">
-                    <img className="img" onClick={this._showProfile} src=""/>
+                    <img className="img" onClick={this._showProfile} src="../../images/avatars/1.jpg"/>
                 </div>
                 <div className="info">
                     <h3 className="nickname">

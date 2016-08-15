@@ -35,15 +35,25 @@ var BoxFooter = React.createClass({
 				</div>
 				<div className="action">
 					<span className="desc">按下Enter发送消息</span>
-					<a className="btn btn_send" href="javascript:;">发送</a>
+					<a className="btn btn_send" href="javascript:;" onClick={this._onClick}>发送</a>
 				</div>
 			</div>
 		);
 	},
 
 	_onKeyDown(e) {
+		Socket.emit('typing');
 		if (e.target.textContent != '' && e.which === ChatConstants.ENTER_KEY_CODE) {
 			Socket.emit('new message', e.target.textContent);
+		}
+	},
+	_onClick(e) {
+		if (this.state.content != '') {
+			Socket.emit('new message', this.state.content);
+			Socket.emit('stop typing');
+			this.setState({
+				content: ''
+			})
 		}
 	},
 
@@ -54,12 +64,15 @@ var BoxFooter = React.createClass({
 	},
 
 	_onKeyUp(e) {
-		if (e.which === ChatConstants.ENTER_KEY_CODE)
+		if (this.state.content === '')
+			Socket.emit('stop typing');
+		if (e.which === ChatConstants.ENTER_KEY_CODE) {
+			Socket.emit('stop typing');
 			this.setState({
 				content: ''
 			})
+		}
 	}
-
 });
 
 module.exports = BoxFooter;

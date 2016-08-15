@@ -13,7 +13,7 @@ var MessageYou = React.createClass({
 				<div className="clearfix">
 					<div style={{ overflow: 'hidden' }}>
 						<div className="message you">
-							<img className="avatar" src="" title={this.props.name}/>
+							<img className="avatar" src="../../images/avatars/1.jpg" title={this.props.name}/>
 							<div className="content">
 								<div className="bubble js_message_bubble bubble_default left">
 									<div className="bubble_cont">
@@ -42,7 +42,7 @@ var MessageMe = React.createClass({
 				<div className="clearfix">
 					<div style={{ overflow: 'hidden' }}>
 						<div className="message me">
-							<img className="avatar" src="" title={this.props.name}/>
+							<img className="avatar" src="../../images/avatars/1.jpg" title={this.props.name}/>
 							<div className="content">
 								<div className="bubble js_message_bubble bubble_primary right">
 									<div className="bubble_cont">

@@ -13,23 +13,23 @@ Socket.on('user joined', function (data) {
 Socket.on('user left', function (data) {
     ActionCreator.getActiveUsersList(data);
 });
-Socket.on('new message',function(data){
+Socket.on('new message', function (data) {
     ActionCreator.sendMessage(data);
 });
-Socket.on('get message',function(data){
+Socket.on('get message', function (data) {
     ActionCreator.sendMessage(data);
 })
 Socket.on('typing', function (data) {
-
+    ActionCreator.typing(data);
 });
 Socket.on('stop typing', function (data) {
-
+    ActionCreator.typing(data);
 });
 var ActionCreator = {
     sendMessage: function (data) {
         ChatAppDispatcher.dispatch({
-            type:ActionTypes.GETALLCHAT,
-            list:data.list
+            type: ActionTypes.GETALLCHAT,
+            list: data.list
         });
     },
     login: function (username) {
@@ -43,9 +43,16 @@ var ActionCreator = {
             type: ActionTypes.GETACTIVEUSERSLIST,
             list: data.userList,
             username: data.username
-        }); 
+        });
+    },
+    typing: function (data) {
+        ChatAppDispatcher.dispatch({
+            type: ActionTypes.TYPING,
+            username: data.username,
+            typing:data.typing
+        })
     }
 
 };
 
-module.exports=ActionCreator;    
+module.exports = ActionCreator;    
