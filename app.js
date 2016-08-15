@@ -77,7 +77,6 @@ io(app).on('connection', function (socket) {
     });
   });
 
-
   socket.on('add user', function (username) {
     if (addedUser) return;
     socket.username = username;
