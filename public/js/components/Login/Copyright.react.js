@@ -4,7 +4,7 @@ var Copyright = React.createClass({
     render: function() {
         return (
             <div className="copyright">
-                <p className="desc">© yowangbin@gmail.com</p>
+                <p className="desc">© 2016 All Rights Reserved</p>
             </div>
 
         );

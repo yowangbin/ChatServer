@@ -76,7 +76,7 @@ button {
     transform: scale(1);
 }
 
-.login.inactive {
+.demo_login.inactive {
     opacity: 0;
     -webkit-transform: scale(1.1);
     transform: scale(1.1);

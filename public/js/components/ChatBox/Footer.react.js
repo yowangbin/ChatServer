@@ -1,9 +1,20 @@
 var React = require('react');
+var $ = require('jquery');
+var Pubsub = require('pubsub-js');
 var ActionCreator = require('../../actions/ActionCreator');
 var ChatConstants = require('../../constants/ChatConstants');
 var Socket = require("../../utils/socket");
 
 var BoxFooter = React.createClass({
+	componentDidMount() {
+		Pubsub.subscribe('login success',this.clearAndFocus);
+	},
+	clearAndFocus: function () {
+        var elem = this.refs.element;
+		window.setTimeout(function () {
+			elem.focus();
+		}, 0);
+    },
 	getInitialState: function () {
 		return {
 			content: ''
@@ -23,6 +34,7 @@ var BoxFooter = React.createClass({
                 </div>
                 <div className="content">
 					<pre id="editArea"
+						ref='element'
 						dangerouslySetInnerHTML={{ __html: this.state.content }}
 						className="flex edit_area"
 						contentEditable="true"
