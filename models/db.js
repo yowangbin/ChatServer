@@ -1,31 +1,98 @@
+/*!
+ * WeChat - db.js
+ * Copyright(c) 2016 wangbin <yowangbin@gmail.com>
+ * MIT Licensed
+ */
+
+'use strict';
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var mongoConfig = require('../config');
+var fullMongoUrl = mongoConfig.serverUrl + mongoConfig.database;
+var exports = module.exports = {};
 
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-
-var insertDocuments = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents');
-  // Insert some documents
-  collection.insertMany([
-    {a : 1}, {a : 2}, {a : 3}
-  ], function(err, result) {
-    assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log("Inserted 3 documents into the collection");
-    callback(result);
+MongoClient.connect(fullMongoUrl)
+  .then((db) => {
+    console.log('connect to database successfully');
+    var usersCollection = db.collection('users');
+    exports.addUser = () => {
+      console.log('db add user');
+      todosCollection.insertOne({ "taskTitle": taskTitle, "status": '0', "finishTime": new Date() });
+      return todosCollection.find().toArray();
+    }
+    exports.deleteUser = () => {
+      console.log('db delete user');
+    }
   });
-}
 
-var url = 'mongodb://localhost:27017/myproject';
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
 
-  insertDocuments(db, function() {
-    db.close();
-  });
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 'use strict';
+// var MongoClient = require('mongodb').MongoClient,
+//     ObjectID = require('mongodb').ObjectID,
+//     settings = require('../conf.js');
+// var fullMongoUrl = settings.mongoConfig.serverUrl + settings.mongoConfig.database;
+// var exports = module.exports = {};
+// console.log(fullMongoUrl)
+// MongoClient.connect(fullMongoUrl)
+//     .then((db) => {
+//         console.log('成功连接数据库...');
+//         var todosCollection = db.collection('todos');
+//         // 获取所有todos    
+//         exports.getAll = () => {
+//             console.log('getAll');
+//             return todosCollection.find().toArray();
+//         };
+//         // 获取未完成todos
+//         exports.getOpen = () => {
+//             console.log('getOpen');
+//             return todosCollection.find({ "status": '0' }).toArray();
+//         };
+//         // 获取已完成todos
+//         exports.getCompleted = () => {
+//             console.log('getCompleted');
+//             return todosCollection.find({ "status": '1' }).toArray();
+//         };
+//         // 通过ID获取指定todo
+//         exports.getById = (id) => {
+//             console.log(id);
+//             return todosCollection.find({ _id: new ObjectID(id) }).toArray();
+//         };
+
+//         // 增加todo
+//         exports.create = (taskTitle) => {
+//             console.log('create');
+//             todosCollection.insertOne({ "taskTitle": taskTitle, "status": '0', "finishTime": new Date() });
+//             return todosCollection.find().toArray();
+//         };
+//         // 删除todo
+//         exports.delete = (id) => {
+//             console.log('delete');
+//             return todosCollection.deleteOne({ _id: new ObjectID(id) });
+//         };
+//         // 更新todo
+//         exports.update = (id, obj) => {
+//             console.log('update');
+//             console.log(obj);
+//             todosCollection.update({ _id: new ObjectID(id) }, obj, false, false);
+//             return todosCollection.find().toArray();
+//         };
+//         // 增加备注
+//         exports.addNode = () => {
+//             console.log('addNode');
+//         };
+//     })
