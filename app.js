@@ -80,22 +80,27 @@ io(app).on('connection', function (socket) {
   socket.on('add user', function (username) {
     if (addedUser) return;
     socket.username = username;
-    USERLIST.push({ id: socket.id, name: username, loginTime: new Date(socket.handshake.time).getTime() });
-    addedUser = true;
-    socket.emit('user joined', {
-      username: username,
-      userList: USERLIST
-    });
-    socket.broadcast.emit('get message', {
-      username: username,
-      list: CHATLIST
-    });
-    socket.broadcast.emit('user joined', {
-      username: username,
-      userList: USERLIST
+    USERLIST.push({ id: socket.id, name: username });
+    db.addUser({
+      id: socket.id,
+      name: username
+    }).then((users) => {
+      addedUser = true;
+      socket.emit('user joined', {
+        username: username,
+        userList: users
+      });
+      socket.broadcast.emit('get message', {
+        username: username,
+        list: users
+      });
+      socket.broadcast.emit('user joined', {
+        username: username,
+        userList: users
+      });
     });
   });
-  
+
 
   socket.on('disconnect', function () {
     console.log('disconnect')

@@ -15,10 +15,10 @@ MongoClient.connect(fullMongoUrl)
   .then((db) => {
     console.log('connect to database successfully');
     var usersCollection = db.collection('users');
-    exports.addUser = () => {
+    exports.addUser = (info) => {
       console.log('db add user');
-      todosCollection.insertOne({ "taskTitle": taskTitle, "status": '0', "finishTime": new Date() });
-      return todosCollection.find().toArray();
+      usersCollection.insertOne({ "name": info.name, "socketId": info.id });
+      return usersCollection.find().toArray();
     }
     exports.deleteUser = () => {
       console.log('db delete user');
