@@ -59,60 +59,54 @@ app = module.exports = http.createServer(app.callback());
 /**
  * io
  */
-var USERNUMBER = 0;
-var USERLIST = [];
-var CHATLIST = [];
 io(app).on('connection', function (socket) {
   var addedUser = false;
-  socket.on('new message', function (data) {
-    var stamp = new Date(socket.handshake.time).getTime();
-    CHATLIST.push({ id: socket.id, key: randomID(), name: socket.username, content: data, stamp: stamp });
-    socket.emit('new message', {
-      username: socket.username,
-      list: CHATLIST
-    });
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      list: CHATLIST
-    });
+  socket.emit('login', {
+    socketId: socket.id
+  });
+  socket.on('new message', function (message) {
+    db.addOneChat({
+      message: message,
+      name: socket.username,
+      id: socket.id
+    }).then((chats) => {
+      console.log(chats)
+      socket.broadcast.emit('new message', {
+        list: chats
+      });
+    })
   });
 
   socket.on('add user', function (username) {
     if (addedUser) return;
     socket.username = username;
-    USERLIST.push({ id: socket.id, name: username });
     db.addUser({
       id: socket.id,
       name: username
     }).then((users) => {
       addedUser = true;
-      socket.emit('user joined', {
-        username: username,
-        userList: users
-      });
-      socket.broadcast.emit('get message', {
-        username: username,
-        list: users
-      });
       socket.broadcast.emit('user joined', {
+        socketId: socket.id,
         username: username,
         userList: users
       });
+      db.getAllChats().then((chats) => {
+        socket.broadcast.emit('get message', {
+          username: username,
+          list: chats
+        });
+      })
     });
   });
 
 
   socket.on('disconnect', function () {
-    console.log('disconnect')
     if (addedUser) {
-      for (var i = 0, l = USERLIST.length; i < l; i++) {
-        console.log(USERLIST[i].name)
-        if (USERLIST[i].name === socket.username)
-          USERLIST.splice(i, 1);
-      }
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        userList: USERLIST
+      db.deleteUser(socket.id).then((users) => {
+        socket.broadcast.emit('user left', {
+          username: socket.username,
+          userList: users
+        });
       });
     }
   });

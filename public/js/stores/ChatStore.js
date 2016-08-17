@@ -40,7 +40,7 @@ var Store = assign({}, EventEmitter.prototype, {
    * @param {function} callback
    */
   getUserInfo: function () {
-    return { name: ACTIVEUSER };
+    return ACTIVEUSER;
   },
 
   /**

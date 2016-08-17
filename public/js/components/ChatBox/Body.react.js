@@ -91,10 +91,10 @@ var BoxBody = React.createClass({
 
     render() {
 		var ChatContent = this.state.list.map(function (item, index) {
-			if (Store.getUserInfo().name === item.name)
-				return <MessageMe key={item.key} name={item.name} content={item.content}/>
+			if (Store.getUserInfo().id&&Store.getUserInfo().id === item.socketId)
+				return <MessageMe key={item._id} name={item.name} content={item.message}/>
 			else
-				return <MessageYou key={item.key} name={item.name} content={item.content}/>
+				return <MessageYou key={item._id} name={item.name} content={item.message}/>
 		});
         return (
             <div className="scroll-wrapper box_bd chat_bd scrollbar-dynamic" style={{ 'position': 'absolute' }}>

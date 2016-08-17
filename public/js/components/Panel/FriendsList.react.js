@@ -15,7 +15,7 @@ var FriendsList = React.createClass({
 
     render() {
         var ContactList=this.state.list.map(function(item,index){
-            return <ContactItem key={item.id} name={item.name} loginTime={item.loginTime}/>;
+            return <ContactItem key={item._id} name={item.name} loginTime={item.loginTime}/>;
         });
         return (
             <div className="scroll-wrapper scrollbar-dynamic contact_list" style={{ position: 'relative' }}>

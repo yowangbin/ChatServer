@@ -2,11 +2,10 @@ var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
-
-Socket.on('login', function (data) {
-
+var activeUser={};
+Socket.on('login', function (id) {
+    activeUser.id = id;
 });
-
 Socket.on('user joined', function (data) {
     ActionCreator.getActiveUsersList(data);
 });
@@ -33,9 +32,10 @@ var ActionCreator = {
         });
     },
     login: function (username) {
+        activeUser.name=username;
         ChatAppDispatcher.dispatch({
             type: ActionTypes.LOGIN,
-            activeUser: username,
+            activeUser: activeUser,
         });
     },
     getActiveUsersList: function (data) {
@@ -49,7 +49,7 @@ var ActionCreator = {
         ChatAppDispatcher.dispatch({
             type: ActionTypes.TYPING,
             username: data.username,
-            typing:data.typing
+            typing: data.typing
         })
     }
 

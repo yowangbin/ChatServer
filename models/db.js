@@ -15,15 +15,27 @@ MongoClient.connect(fullMongoUrl)
   .then((db) => {
     console.log('connect to database successfully');
     var usersCollection = db.collection('users');
+    var chatsCollection = db.collection('chats');
     exports.addUser = (info) => {
       console.log('db add user');
       usersCollection.insertOne({ "name": info.name, "socketId": info.id });
       return usersCollection.find().toArray();
     }
-    exports.deleteUser = () => {
+    exports.deleteUser = (socketId) => {
       console.log('db delete user');
+      console.log(socketId);
+      usersCollection.deleteOne({ socketId: socketId });
+      return usersCollection.find().toArray();
     }
+    exports.addOneChat = ((info) => {
+      chatsCollection.insertOne({ 'message': info.message, "name": info.name, "socketId": info.id });
+      return chatsCollection.find().toArray();
+    })
+    exports.getAllChats = (() => {
+      return chatsCollection.find().toArray();
+    })
   });
+
 
 
 
