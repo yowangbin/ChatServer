@@ -1,5 +1,5 @@
 var React = require('react');
-var Store=require('../../stores/ChatStore');
+var StatusStore=require('../../stores/StatusStore');
 
 var BoxHeader = React.createClass({
     getInitialState() {
@@ -9,10 +9,10 @@ var BoxHeader = React.createClass({
     },
 
     componentWillMount() {
-        Store.removeChangeListener(this._onChange);
+        StatusStore.removeChangeListener(this._onChange);
     },
     componentDidMount() {
-        Store.addChangeListener(this._onChange);
+        StatusStore.addChangeListener(this._onChange);
     },
 
     render() {
@@ -35,7 +35,7 @@ var BoxHeader = React.createClass({
         );
     },
     _onChange() {
-        this.setState(Store.getTypingUser());
+        this.setState(StatusStore.getTypingUser());
     }
 });
 

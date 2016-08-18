@@ -1,5 +1,5 @@
 var React = require('react');
-var Store = require('../../stores/ChatStore');
+var UserStore = require('../../stores/UserStore');
 var Pubsub = require('pubsub-js');
 
 var Header = React.createClass({
@@ -11,10 +11,10 @@ var Header = React.createClass({
         };
     },
     componentWillMount() {
-        Store.removeChangeListener(this._onChange);
+        UserStore.removeChangeListener(this._onChange);
     },
     componentDidMount() {
-        Store.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onChange);
     },
 
     render: function () {
@@ -41,7 +41,7 @@ var Header = React.createClass({
         Pubsub.publish('show menu', this.showMenu);
     },
     _onChange(data) {
-        this.setState(Store.getUserInfo());
+        this.setState(UserStore.getUserInfo());
     }
 });
 

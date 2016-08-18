@@ -1,5 +1,6 @@
 var React = require('react');
-var Store = require('../../stores/ChatStore');
+var ChatsStore = require('../../stores/ChatsStore');
+var UserStore=require('../../stores/UserStore');
 
 var style = {
     "marginBottom": "0px",
@@ -74,25 +75,26 @@ var MessageEmpty = React.createClass({
 var BoxBody = React.createClass({
 
     getInitialState() {
-        return Store.getAllChat();
+        return ChatsStore.getAllChat();
     },
 
     componentWillMount() {
-        Store.removeChangeListener(this._onChange);
+        ChatsStore.removeChangeListener(this._onChange);
     },
 
     componentDidMount() {
 
-        Store.addChangeListener(this._onChange);
+        ChatsStore.addChangeListener(this._onChange);
     },
 	componentDidUpdate(prevProps, prevState) {
 		this._scrollToBottom();
 	},
 
     render() {
+		console.log(UserStore.getUserInfo())
 		var ChatContent = this.state.list.map(function (item, index) {
-			console.log(Store.getUserInfo().id)
-			if (Store.getUserInfo().id&&Store.getUserInfo().id === item.socketId)
+			console.log(item.socketId)
+			if (UserStore.getUserInfo().id&&UserStore.getUserInfo().id === item.socketId)
 				return <MessageMe key={item._id} name={item.name} content={item.message}/>
 			else
 				return <MessageYou key={item._id} name={item.name} content={item.message}/>
@@ -111,7 +113,7 @@ var BoxBody = React.createClass({
     },
 	_onChange() {
 		if (this.isMounted())
-            this.setState(Store.getAllChat());
+            this.setState(ChatsStore.getAllChat());
 	},
 	_scrollToBottom: function () {
 		this.refs.scrollContent.scrollTop = this.refs.scrollContent.scrollHeight;

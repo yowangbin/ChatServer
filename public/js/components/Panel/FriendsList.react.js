@@ -1,16 +1,16 @@
 var React = require('react');
-var Store = require('../../stores/ChatStore');
+var FriendsStore = require('../../stores/FriendsStore');
 
 var FriendsList = React.createClass({
     getInitialState() {
-        return Store.getUserList();
+        return FriendsStore.getUserList();
     },
     componentWillMount() {
-        Store.removeChangeListener(this._onChange);
+        FriendsStore.removeChangeListener(this._onChange);
     },
 
     componentDidMount() {
-        Store.addChangeListener(this._onChange);
+        FriendsStore.addChangeListener(this._onChange);
     },
 
     render() {
@@ -35,7 +35,7 @@ var FriendsList = React.createClass({
     },
     _onChange() {
         if (this.isMounted())
-            this.setState(Store.getUserList());
+            this.setState(FriendsStore.getUserList());
     }
 });
 var ContactItem = React.createClass({
