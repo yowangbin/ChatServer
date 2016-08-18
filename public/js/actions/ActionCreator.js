@@ -4,9 +4,11 @@ var Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
 var activeUser={};
 Socket.on('login', function (data) {
-    activeUser.id = data.socketId;
+    console.log('login')
+    // activeUser.id = data.socketId;
 });
 Socket.on('user joined', function (data) {
+    activeUser.id=data.id;
     ActionCreator.getActiveUsersList(data);
 });
 Socket.on('user left', function (data) {
@@ -41,8 +43,8 @@ var ActionCreator = {
     getActiveUsersList: function (data) {
         ChatAppDispatcher.dispatch({
             type: ActionTypes.GETACTIVEUSERSLIST,
-            list: data.userList,
-            username: data.username
+            list: data.users,
+            username: data.name
         });
     },
     typing: function (data) {

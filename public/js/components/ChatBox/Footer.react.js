@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jquery');
 var Pubsub = require('pubsub-js');
 var ActionCreator = require('../../actions/ActionCreator');
+var UserStore=require('../../stores/UserStore');
 var ChatConstants = require('../../constants/ChatConstants');
 var Socket = require("../../utils/socket");
 
@@ -55,8 +56,9 @@ var BoxFooter = React.createClass({
 
 	_onKeyDown(e) {
 		Socket.emit('typing');
+		console.log(UserStore.getUserInfo())
 		if (e.target.textContent != '' && e.which === ChatConstants.ENTER_KEY_CODE) {
-			Socket.emit('new message', e.target.textContent);
+			Socket.emit('new message', e.target.textContent,UserStore.getUserInfo().id);
 		}
 	},
 	_onClick(e) {

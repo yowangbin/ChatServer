@@ -6,6 +6,7 @@
 
 'use strict';
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId; 
 var assert = require('assert');
 var mongoConfig = require('../config');
 var fullMongoUrl = mongoConfig.serverUrl + mongoConfig.database;
@@ -16,15 +17,17 @@ MongoClient.connect(fullMongoUrl)
     console.log('connect to database successfully');
     var usersCollection = db.collection('users');
     var chatsCollection = db.collection('chats');
-    exports.addUser = (info) => {
+    exports.addOneUser = (info) => {
       console.log('db add user');
-      usersCollection.insertOne({ "name": info.name, "socketId": info.id });
+      return usersCollection.insertOne({ "name": info.name});
+      // return usersCollection.find().toArray();
+    }
+    exports.getAllUsers=()=>{
       return usersCollection.find().toArray();
     }
-    exports.deleteUser = (socketId) => {
+    exports.deleteUser = (id) => {
       console.log('db delete user');
-      console.log(socketId);
-      usersCollection.deleteOne({ socketId: socketId });
+      usersCollection.deleteOne({_id:new ObjectId(id)});
       return usersCollection.find().toArray();
     }
     exports.addOneChat = ((info) => {

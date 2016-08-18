@@ -62,15 +62,14 @@ app = module.exports = http.createServer(app.callback());
 io(app).on('connection', function (socket) {
   var addedUser = false;
   socket.emit('login', {
-    socketId: socket.id
+    // socketId: socket.id
   });
-  socket.on('new message', function (message) {
+  socket.on('new message', function (message, id) {
     db.addOneChat({
       message: message,
       name: socket.username,
-      id: socket.id
+      id: id
     }).then((chats) => {
-      console.log(chats)
       socket.broadcast.emit('new message', {
         list: chats
       });
@@ -79,34 +78,37 @@ io(app).on('connection', function (socket) {
 
   socket.on('add user', function (username) {
     if (addedUser) return;
-    socket.username = username;
-    db.addUser({
-      id: socket.id,
+    db.addOneUser({
       name: username
-    }).then((users) => {
-      addedUser = true;
-      socket.broadcast.emit('user joined', {
-        socketId: socket.id,
-        username: username,
-        userList: users
-      });
-      db.getAllChats().then((chats) => {
-        console.log(chats)
-        socket.broadcast.emit('get message', {
-          username: username,
-          list: chats
-        });
-      })
+    }).then((user) => {
+      if (user.result['ok'] === 1) {
+        addedUser = true;
+        socket.username = username;
+        socket.userId = user.ops[0]._id;
+        db.getAllUsers()
+          .then((users) => {
+            socket.broadcast.emit('user joined', { id: user.ops[0]._id, users: users });
+          });
+
+        db.getAllChats()
+          .then((chats) => {
+            socket.broadcast.emit('get message', {
+              username: username,
+              list: chats
+            });
+          });
+      }
     });
   });
 
 
   socket.on('disconnect', function () {
     if (addedUser) {
-      db.deleteUser(socket.id).then((users) => {
+      db.deleteUser(socket.userId).then((users) => {
+        console.log(users)
         socket.broadcast.emit('user left', {
           username: socket.username,
-          userList: users
+          users: users
         });
       });
     }

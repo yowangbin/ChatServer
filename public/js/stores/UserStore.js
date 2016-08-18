@@ -36,7 +36,6 @@ var UserStore = assign({}, EventEmitter.prototype, {
   getUserInfo: function () {
     return ACTIVEUSER;
   }
-
 });
 
 UserStore.dispatchToken = ChatAppDispatcher.register(function (action) {
