@@ -91,6 +91,7 @@ io(app).on('connection', function (socket) {
         userList: users
       });
       db.getAllChats().then((chats) => {
+        console.log(chats)
         socket.broadcast.emit('get message', {
           username: username,
           list: chats

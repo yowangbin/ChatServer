@@ -3,8 +3,8 @@ var ChatConstants = require('../constants/ChatConstants');
 var Socket = require('../utils/Socket');
 var ActionTypes = ChatConstants.ActionTypes;
 var activeUser={};
-Socket.on('login', function (id) {
-    activeUser.id = id;
+Socket.on('login', function (data) {
+    activeUser.id = data.socketId;
 });
 Socket.on('user joined', function (data) {
     ActionCreator.getActiveUsersList(data);

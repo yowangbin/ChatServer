@@ -91,6 +91,7 @@ var BoxBody = React.createClass({
 
     render() {
 		var ChatContent = this.state.list.map(function (item, index) {
+			console.log(Store.getUserInfo().id)
 			if (Store.getUserInfo().id&&Store.getUserInfo().id === item.socketId)
 				return <MessageMe key={item._id} name={item.name} content={item.message}/>
 			else
