@@ -7,6 +7,7 @@ WeChat是使用Flux构建的React在线聊天应用，Style与微信网页版保
 git clone git@github.com:dead-horse/koa-todo.git
 make install
 make build
+mongod --dbpath /models/data
 node --harmony app.js
 ```
 浏览器中访问http://127.0.0.1:7001/
